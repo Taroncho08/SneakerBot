@@ -12,6 +12,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from Parsing.adidas import AdidasParse
 import os
+import time
 
 class FSM_states(StatesGroup):
     change_gender = State()
@@ -27,9 +28,8 @@ class SneakerBot:
         reebok_shop = KeyboardButton("Reebok")
         adidas_shop = KeyboardButton("Adidas")
         gender_key = KeyboardButton("Выбрать пол")
-        all_shops = KeyboardButton("All")
         self.keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-        self.keyboard.add(all_shops).add(nike_shop).add(reebok_shop).add(adidas_shop).add(gender_key)
+        self.keyboard.add(nike_shop).add(reebok_shop).add(adidas_shop).add(gender_key)
 
         self.gender_change_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
         male = KeyboardButton("Мужчина")
@@ -61,6 +61,7 @@ class SneakerBot:
                            f"Sale : {item.get('sale')}"
 
                     await message.answer(card)
+                    time.sleep(0.2)
 
             elif self.gender == "Женшина":
                 parserNike.get_data(url="https://api.nike.com/product_feed/rollup_threads/v2?filter=marketplace%28US%29&filter=language%28en%29&filter=employeePrice%28true%29&filter=attributeIds%2816633190-45e5-4830-a068-232ac7aea82c%2C7baf216c-acc6-4452-9e07-39c2ca77ba32%2C5b21a62a-0503-400c-8336-3ccfbff2a684%2C193af413-39b0-4d7e-ae34-558821381d3f%29&anchor=0&consumerChannelId=d9a5bc42-4b9c-4976-858a-f159cf99c647&count=24")
@@ -75,6 +76,7 @@ class SneakerBot:
                            f"Sale : {item.get('sale')}"
 
                     await message.answer(card)
+                    time.sleep(0.2)
 
             else:
                 await message.answer("Выберите пол")
@@ -98,6 +100,7 @@ class SneakerBot:
                            f"Sale : {item.get('sale')}"
 
                     await message.answer(card)
+                    time.sleep(0.2)
                 os.remove("reebok_results.json")
             elif self.gender == "Женшина":
                 ReebokParse(url="https://www.reebok.com/api/plp/content-engine?sitePath=us&query=women-classics-shoes-sale")
@@ -112,6 +115,7 @@ class SneakerBot:
                            f"Sale : {item.get('sale')}"
 
                     await message.answer(card)
+                    time.sleep(0.2)
                 os.remove("reebok_results.json")
             else:
                 await message.answer("Выберите пол")
@@ -132,6 +136,7 @@ class SneakerBot:
                            f"Sale : {item.get('sale')}"
 
                     await message.answer(card)
+                    time.sleep(0.2)
                 os.remove("adidas_results.json")
             elif self.gender == "Женшина":
                 ReebokParse(url="https://www.adidas.com/api/plp/content-engine?sitePath=us&query=women-athletic_sneakers-shoes-sale")
@@ -146,6 +151,7 @@ class SneakerBot:
                            f"Sale : {item.get('sale')}"
 
                     await message.answer(card)
+                    time.sleep(0.2)
                 os.remove("adidas_results.json")
             else:
                 await message.answer("Выберите пол")

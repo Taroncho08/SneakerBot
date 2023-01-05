@@ -51,11 +51,11 @@ class ReebokParse:
         sess = requests.Session()
         price_info = sess.get("https://www.reebok.com/api/search/product/" + id + "?sitePath=us", headers=self.headers)
         price_data = price_info.json()
+        if "price" in price_data:
+            self.price = price_data["price"]
+            self.salePrice = price_data["salePrice"]
 
-        price = price_data["price"]
-        salePrice = price_data["salePrice"]
-
-        return price, salePrice
+        return self.price, self.salePrice
 
     def new_link(self, url):
         ses = requests.session()
@@ -70,7 +70,6 @@ class ReebokParse:
                 return False
         except:
             return False
-
 
 
 
